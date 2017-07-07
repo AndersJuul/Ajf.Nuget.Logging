@@ -1,33 +1,33 @@
 ﻿using System;
 using System.Configuration;
 using Serilog;
+using Serilog.Core.Enrichers;
 using Serilog.Sinks.Elasticsearch;
 
 namespace Ajf.Nuget.Logging
 {
     public class StandardLoggerProvider
     {
-        private static ILogger _configuredLogger;
+        private static IDisposable LogContext { get; set; }
 
-        public static ILogger GetLogger()
+        public static void SetLogger()
         {
-            if (_configuredLogger == null)
-            {
-                var fileName = ConfigurationManager.AppSettings["LogFileDirectory"] +
-                                 ConfigurationManager.AppSettings["SuiteName"] + "." +
-                                 ConfigurationManager.AppSettings["ComponentName"] + ".log";
+            var fileName = ConfigurationManager.AppSettings["LogFileDirectory"] +
+                           ConfigurationManager.AppSettings["SuiteName"] + "." +
+                           ConfigurationManager.AppSettings["ComponentName"] + ".log";
 
-                var esLoggingUrl = ConfigurationManager.AppSettings["EsLoggingUrl"];
+            var esLoggingUrl = ConfigurationManager.AppSettings["EsLoggingUrl"];
 
-                var esLoggingUri = new Uri(esLoggingUrl);
+            var esLoggingUri = new Uri(esLoggingUrl);
 
-                _configuredLogger = new LoggerConfiguration()
-                    .WriteTo.RollingFile(fileName)
-                    .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(esLoggingUri))
-                    .CreateLogger();
-            }
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.RollingFile(fileName)
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(esLoggingUri))
+                .CreateLogger();
 
-            return _configuredLogger;
+            LogContext = Serilog.Context.LogContext.Push(
+                new PropertyEnricher("Environment", ConfigurationManager.AppSettings["Environment"]));
         }
     }
 }
