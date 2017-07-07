@@ -12,7 +12,7 @@ namespace Ajf.Nuget.Logging
 
             return new LoggerConfiguration()
                 .Enrich.With<SettingsEnricher>()
-                .Enrich.FromLogContext()
+                //.Enrich.FromLogContext()
                 .WriteTo.RollingFile(settings.FileName)
                 .WriteTo.Elasticsearch(settings.ElasticsearchSinkOptions)
                 .CreateLogger();
