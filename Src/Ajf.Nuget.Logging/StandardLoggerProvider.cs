@@ -2,9 +2,9 @@
 
 namespace Ajf.Nuget.Logging
 {
-    public class StandardLoggerProvider : ILoggerProvider
+    public class StandardLoggerProvider 
     {
-        public ILogger GetLogger()
+        public static ILogger GetLogger()
         {
             return Log.Logger;
         }
