@@ -15,6 +15,19 @@ namespace Ajf.Nuget.Logging
             EsLoggingUrl = ConfigurationManager.AppSettings["EsLoggingUrl"];
             ReleaseNumber = ConfigurationManager.AppSettings["ReleaseNumber"];
 
+            if (string.IsNullOrEmpty(Environment))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(Environment));
+            if (string.IsNullOrEmpty(SuiteName))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(SuiteName));
+            if (string.IsNullOrEmpty(ComponentName))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(ComponentName));
+            if (string.IsNullOrEmpty(LogFileDirectory))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(LogFileDirectory));
+            if (string.IsNullOrEmpty(EsLoggingUrl))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(EsLoggingUrl));
+            if (string.IsNullOrEmpty(ReleaseNumber))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(ReleaseNumber));
+
             FileName = $"{LogFileDirectory}{SuiteName}.{ComponentName}.log";
 
             EsLoggingUri = new Uri(EsLoggingUrl);
