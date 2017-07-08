@@ -1,6 +1,4 @@
-﻿using System;
-using Serilog;
-using Serilog.Core.Enrichers;
+﻿using Serilog;
 
 namespace Ajf.Nuget.Logging
 {
@@ -11,8 +9,11 @@ namespace Ajf.Nuget.Logging
             var settings = new SettingsFromConfigFile();
 
             return new LoggerConfiguration()
-                .Enrich.With<SettingsEnricher>()
-                //.Enrich.FromLogContext()
+                .Enrich.WithProperty("ReleaseNumber", settings.ReleaseNumber)
+                .Enrich.WithProperty("Environment", settings.Environment)
+                .Enrich.WithProperty("SuiteName", settings.SuiteName)
+                .Enrich.WithProperty("ComponentName", settings.ComponentName)
+                .Enrich.FromLogContext()
                 .WriteTo.RollingFile(settings.FileName)
                 .WriteTo.Elasticsearch(settings.ElasticsearchSinkOptions)
                 .CreateLogger();
