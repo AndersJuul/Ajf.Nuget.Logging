@@ -1,9 +1,8 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 
 namespace Ajf.Nuget.Logging
 {
-    public class ServiceSettingsFromConfigFile: SettingsFromConfigFile
+    public class ServiceSettingsFromConfigFile : SettingsFromConfigFile
     {
         public ServiceSettingsFromConfigFile()
         {
@@ -12,11 +11,11 @@ namespace Ajf.Nuget.Logging
             ServiceName = ConfigurationManager.AppSettings["ServiceName"];
 
             if (string.IsNullOrEmpty(Description))
-                Description = SuiteName + "." + ComponentName;
+                Description = $"{SuiteName}.{ComponentName}.{ReleaseNumber}";
             if (string.IsNullOrEmpty(DisplayName))
-                DisplayName = SuiteName + "." + ComponentName;
+                DisplayName = $"{SuiteName}.{ComponentName}";
             if (string.IsNullOrEmpty(ServiceName))
-                ServiceName = SuiteName + "." + ComponentName;
+                ServiceName = $"{SuiteName}.{ComponentName}";
         }
 
         public string ServiceName { get; set; }
