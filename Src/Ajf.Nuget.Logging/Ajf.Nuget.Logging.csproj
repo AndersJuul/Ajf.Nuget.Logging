@@ -64,6 +64,7 @@
     <Compile Include="SettingsEnricher.cs" />
     <Compile Include="StandardLoggerConfigurator.cs" />
     <Compile Include="SettingsFromConfigFile.cs" />
+    <Compile Include="WebSettingsFromConfigFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
