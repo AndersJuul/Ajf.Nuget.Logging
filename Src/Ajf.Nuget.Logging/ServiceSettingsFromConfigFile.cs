@@ -12,11 +12,11 @@ namespace Ajf.Nuget.Logging
             ServiceName = ConfigurationManager.AppSettings["ServiceName"];
 
             if (string.IsNullOrEmpty(Description))
-                throw new ArgumentException("AppSetting can't be null/empty", nameof(Description));
+                Description = SuiteName + "." + ComponentName;
             if (string.IsNullOrEmpty(DisplayName))
-                throw new ArgumentException("AppSetting can't be null/empty", nameof(DisplayName));
+                DisplayName = SuiteName + "." + ComponentName;
             if (string.IsNullOrEmpty(ServiceName))
-                throw new ArgumentException("AppSetting can't be null/empty", nameof(ServiceName));
+                ServiceName = SuiteName + "." + ComponentName;
         }
 
         public string ServiceName { get; set; }
