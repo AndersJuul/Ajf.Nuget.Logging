@@ -9,6 +9,7 @@ namespace Ajf.Nuget.Logging
             var settings = new SettingsFromConfigFile();
 
             return new LoggerConfiguration()
+                .Enrich.WithMachineName()
                 .Enrich.WithProperty("ReleaseNumber", settings.ReleaseNumber)
                 .Enrich.WithProperty("Environment", settings.Environment)
                 .Enrich.WithProperty("SuiteName", settings.SuiteName)
