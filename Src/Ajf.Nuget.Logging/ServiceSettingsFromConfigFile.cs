@@ -11,11 +11,13 @@ namespace Ajf.Nuget.Logging
             ServiceName = ConfigurationManager.AppSettings["ServiceName"];
 
             if (string.IsNullOrEmpty(Description))
-                Description = $"{SuiteName}.{ComponentName}.{ReleaseNumber}";
+                Description = $"{SuiteName}.{ComponentName}";
             if (string.IsNullOrEmpty(DisplayName))
                 DisplayName = $"{SuiteName}.{ComponentName}";
             if (string.IsNullOrEmpty(ServiceName))
                 ServiceName = $"{SuiteName}.{ComponentName}";
+
+            Description += ". " + ReleaseNumber;
         }
 
         public string ServiceName { get; set; }
