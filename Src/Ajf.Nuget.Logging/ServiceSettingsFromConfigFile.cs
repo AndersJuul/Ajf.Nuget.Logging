@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace Ajf.Nuget.Logging
 {
@@ -9,7 +10,13 @@ namespace Ajf.Nuget.Logging
             Description = ConfigurationManager.AppSettings["Description"];
             DisplayName = ConfigurationManager.AppSettings["DisplayName"];
             ServiceName = ConfigurationManager.AppSettings["ServiceName"];
+            RunAsUserName = ConfigurationManager.AppSettings["RunAsUserName"];
+            RunAsPassword = ConfigurationManager.AppSettings["RunAsPassword"];
 
+            if (string.IsNullOrEmpty(RunAsUserName))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(RunAsUserName));
+            if (string.IsNullOrEmpty(RunAsPassword))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(RunAsPassword));
             if (string.IsNullOrEmpty(Description))
                 Description = $"{SuiteName}.{ComponentName}";
             if (string.IsNullOrEmpty(DisplayName))
@@ -19,6 +26,10 @@ namespace Ajf.Nuget.Logging
 
             Description += ". " + ReleaseNumber;
         }
+
+        public string RunAsPassword { get; set; }
+
+        public string RunAsUserName { get; set; }
 
         public string ServiceName { get; set; }
 
