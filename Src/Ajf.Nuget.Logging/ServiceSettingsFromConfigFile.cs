@@ -12,6 +12,7 @@ namespace Ajf.Nuget.Logging
             ServiceName = ConfigurationManager.AppSettings["ServiceName"];
             RunAsUserName = ConfigurationManager.AppSettings["RunAsUserName"];
             RunAsPassword = ConfigurationManager.AppSettings["RunAsPassword"];
+            EasyNetQConfig = ConfigurationManager.AppSettings["EasyNetQConfig"];
 
             if (string.IsNullOrEmpty(RunAsUserName))
                 throw new ArgumentException("AppSetting can't be null/empty", nameof(RunAsUserName));
@@ -36,5 +37,7 @@ namespace Ajf.Nuget.Logging
         public string DisplayName { get; set; }
 
         public string Description { get; set; }
+
+        public string EasyNetQConfig { get; set; }
     }
 }
