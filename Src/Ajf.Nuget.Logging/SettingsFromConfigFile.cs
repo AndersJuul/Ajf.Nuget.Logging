@@ -32,6 +32,7 @@ namespace Ajf.Nuget.Logging
 
             EsLoggingUri = new Uri(EsLoggingUrl);
             ElasticsearchSinkOptions = new ElasticsearchSinkOptions(EsLoggingUri);
+            EasyNetQConfig = ConfigurationManager.AppSettings["EasyNetQConfig"];
         }
 
         public string LogFileDirectory { get; set; }
@@ -44,5 +45,6 @@ namespace Ajf.Nuget.Logging
         public Uri EsLoggingUri { get; set; }
         public ElasticsearchSinkOptions ElasticsearchSinkOptions { get; set; }
         public string Environment { get; set; }
+        public string EasyNetQConfig { get; set; }
     }
 }
