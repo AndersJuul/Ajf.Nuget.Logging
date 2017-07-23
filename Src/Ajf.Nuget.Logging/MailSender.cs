@@ -23,8 +23,10 @@ namespace Ajf.Nuget.Logging
                 From = fromMailAddress
             };
 
+            if(!string.IsNullOrEmpty(toAddress))
             myMessage.AddTo(toAddress);
-            myMessage.AddCc(ccAddress);
+            if (!string.IsNullOrEmpty(ccAddress))
+                myMessage.AddCc(ccAddress);
 
             var bytes = Encoding.Default.GetBytes(subject);
             myMessage.Subject = Encoding.UTF8.GetString(bytes);
