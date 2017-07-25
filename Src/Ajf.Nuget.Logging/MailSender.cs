@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,7 @@ namespace Ajf.Nuget.Logging
 {
     public class MailSender: IMailSender
     {
-        public async Task SendMailAsync(string toAddress, string ccAddress, string senderAddress, string subject, string bodyAsHtml)
+        public async Task SendMailAsync(string toAddress, string ccAddress, string senderAddress, string subject, string bodyAsHtml, IEnumerable<string> attachmentPaths)
         {
             //var folderContents = GetFolderContents(path, path).ToArray();
             
@@ -31,6 +33,11 @@ namespace Ajf.Nuget.Logging
             var bytes = Encoding.Default.GetBytes(subject);
             myMessage.Subject = Encoding.UTF8.GetString(bytes);
             myMessage.Html = bodyAsHtml;
+
+            foreach (var attachmentPath in attachmentPaths)
+            {
+                myMessage.AddAttachment(attachmentPath);
+            }
 
             // Send the email.
             await transport.DeliverAsync(myMessage);
