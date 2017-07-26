@@ -40,7 +40,7 @@ namespace Ajf.Nuget.Logging
             }
 
             // Send the email.
-            await transport.DeliverAsync(myMessage);
+            await transport.DeliverAsync(myMessage).ConfigureAwait(false);
         }
     }
 }
