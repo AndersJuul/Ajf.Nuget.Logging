@@ -18,9 +18,9 @@ namespace Ajf.Nuget.Logging
 
             var apiKey = "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";
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress(senderAddress, "Sender");
+            var from = new EmailAddress(senderAddress);
 
-            var to = new EmailAddress(toAddress, "Example User");
+            var to = new EmailAddress(toAddress);
             var msg = MailHelper.CreateSingleEmail(from, to, subject, "Read as html", bodyAsHtml);
             var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
             return response.StatusCode;
