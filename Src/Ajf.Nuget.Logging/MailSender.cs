@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 using SendGrid;
@@ -16,7 +17,7 @@ namespace Ajf.Nuget.Logging
             Log.Logger.Information("SendMailAsync-");
 
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_KEY");
-            Console.WriteLine(apiKey);
+            Debug.WriteLine(apiKey);
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress(senderAddress);
 
