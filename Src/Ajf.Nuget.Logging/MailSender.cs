@@ -18,6 +18,10 @@ namespace Ajf.Nuget.Logging
             Log.Logger.Information("SendMailAsync-");
 
             var apiKey = Environment.GetEnvironmentVariable("SENDGRID_KEY");
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                throw new Exception("The environment key SENDGRID_KEY must be set in order to use sendgrid.");
+            }
 
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress(senderAddress);
