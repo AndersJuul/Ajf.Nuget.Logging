@@ -6,6 +6,12 @@ namespace Ajf.Nuget.Logging
     {
         public static ILogger GetEnrichedLogger()
         {
+            return GetLoggerConfig()
+                .CreateLogger();
+        }
+
+        public static LoggerConfiguration GetLoggerConfig()
+        {
             var settings = new SettingsFromConfigFile();
 
             return new LoggerConfiguration()
@@ -16,8 +22,7 @@ namespace Ajf.Nuget.Logging
                 .Enrich.WithProperty("ComponentName", settings.ComponentName)
                 .Enrich.FromLogContext()
                 .WriteTo.RollingFile(settings.FileName)
-                .WriteTo.Elasticsearch(settings.ElasticsearchSinkOptions)
-                .CreateLogger();
+                .WriteTo.Elasticsearch(settings.ElasticsearchSinkOptions);
         }
     }
 }
