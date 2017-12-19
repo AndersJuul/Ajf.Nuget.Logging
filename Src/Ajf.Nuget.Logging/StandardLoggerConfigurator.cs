@@ -1,4 +1,6 @@
-﻿using Serilog;
+﻿using System;
+using Serilog;
+using Serilog.Configuration;
 
 namespace Ajf.Nuget.Logging
 {
@@ -15,6 +17,7 @@ namespace Ajf.Nuget.Logging
             var settings = new SettingsFromConfigFile();
 
             return new LoggerConfiguration()
+                .MinimumLevel.Is(settings.LoggingLevel)
                 .Enrich.WithMachineName()
                 .Enrich.WithProperty("ReleaseNumber", settings.ReleaseNumber)
                 .Enrich.WithProperty("Environment", settings.Environment)

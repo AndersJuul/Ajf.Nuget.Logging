@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
+using Topshelf.Logging;
 
 namespace Ajf.Nuget.Logging
 {
@@ -14,6 +16,11 @@ namespace Ajf.Nuget.Logging
             LogFileDirectory = ConfigurationManager.AppSettings["LogFileDirectory"];
             EsLoggingUrl = ConfigurationManager.AppSettings["EsLoggingUrl"];
             ReleaseNumber = ConfigurationManager.AppSettings["ReleaseNumber"];
+
+            var loggingLevel = ConfigurationManager.AppSettings["LoggingLevel"];
+            if (string.IsNullOrEmpty(loggingLevel))
+                throw new ArgumentException("AppSetting can't be null/empty", nameof(loggingLevel));
+            LoggingLevel = (LogEventLevel) Enum.Parse(typeof(LogEventLevel),loggingLevel);
 
             if (string.IsNullOrEmpty(Environment))
                 throw new ArgumentException("AppSetting can't be null/empty", nameof(Environment));
@@ -46,5 +53,6 @@ namespace Ajf.Nuget.Logging
         public ElasticsearchSinkOptions ElasticsearchSinkOptions { get; set; }
         public string Environment { get; set; }
         public string EasyNetQConfig { get; set; }
+        public LogEventLevel LoggingLevel { get; set; }
     }
 }
