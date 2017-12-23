@@ -7,6 +7,7 @@ namespace Ajf.Nuget.Logging.Tests
     [TestFixture]
     public class MailSenderTests
     {
+        [Ignore]
         [Test]
         public void TestThatMailCanBeSend()
         {
