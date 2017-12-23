@@ -14,7 +14,7 @@ namespace Ajf.Nuget.Logging
         private readonly string[] _whitelist = { "given_name", "email", "family_name", "role", "sub" };
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            var info = actionContext.RequestContext.Url.ToString();
+            var info = actionContext.RequestContext.Url.Request.RequestUri.ToString();
             if (actionContext.RequestContext.Principal != null)
             {
                 if (actionContext.RequestContext.Principal.Identity.IsAuthenticated)
