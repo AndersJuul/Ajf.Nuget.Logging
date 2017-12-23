@@ -1,22 +1,25 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
-using System.Web.Mvc;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Http.Controllers;
 using Serilog;
 
 namespace Ajf.Nuget.Logging
 {
-    public class LoggingFilterAttribute : ActionFilterAttribute
+    public class ApiLoggingFilterAttribute : System.Web.Http.Filters.ActionFilterAttribute
     {
         private readonly string[] _whitelist = { "given_name", "email", "family_name", "role", "sub" };
-
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            var info = filterContext.RequestContext.HttpContext.Request.Url.ToString();
-            if (filterContext.RequestContext.HttpContext.User != null)
+            var info = actionContext.RequestContext.Url.ToString();
+            if (actionContext.RequestContext.Principal != null)
             {
-                if (filterContext.RequestContext.HttpContext.User.Identity.IsAuthenticated)
+                if (actionContext.RequestContext.Principal.Identity.IsAuthenticated)
                 {
-                    var claimsIdentity = filterContext.RequestContext.HttpContext.User.Identity as ClaimsIdentity;
+                    var claimsIdentity = actionContext.RequestContext.Principal.Identity as ClaimsIdentity;
                     if (claimsIdentity != null)
                     {
                         foreach (var claimsIdentityClaim in claimsIdentity.Claims)
@@ -30,7 +33,7 @@ namespace Ajf.Nuget.Logging
                 }
             }
             Log.Logger.Debug("Request: " + info);
-            base.OnActionExecuting(filterContext);
+            base.OnActionExecuting(actionContext);
         }
     }
 }
