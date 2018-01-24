@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
+using Ajf.Nuget.Mailing;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using Serilog;

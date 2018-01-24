@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Ajf.Nuget.Logging
+namespace Ajf.Nuget.Mailing
 {
     public interface IMailSender
     {
