@@ -77,10 +77,6 @@
       <Project>{BB27A547-9C52-403B-B53C-5EE3F983400D}</Project>
       <Name>Ajf.Nuget.Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Ajf.Nuget.Mailing\Ajf.Nuget.Mailing.csproj">
-      <Project>{8ab556f5-e6d4-4b03-9626-9cc9b08fc64c}</Project>
-      <Name>Ajf.Nuget.Mailing</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
