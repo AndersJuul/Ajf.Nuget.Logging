@@ -2,7 +2,6 @@
 using System.Configuration;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
-using Topshelf.Logging;
 
 namespace Ajf.Nuget.Logging
 {
